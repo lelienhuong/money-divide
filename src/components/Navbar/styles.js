@@ -3,11 +3,6 @@ import { makeStyles } from "@material-ui/styles";
 const drawerWidth = 240;
 
 export default makeStyles(theme => ({
-    navbarContainer: {
-        width: "100%",
-        height: "auto",
-        backgroundColor: "red",
-    },
     avatarButton: {
         cursor: "pointer"
     },
@@ -20,43 +15,13 @@ export default makeStyles(theme => ({
             easing: theme.transitions.easing.sharp,
             duration: theme.transitions.duration.leavingScreen,
         }),
+        boxShadow:"0 1px 4px rgb(0 21 41 / 8%) !important"
     },
-    // appBarShift: {
-    //     marginLeft: drawerWidth,
-    //     width: `calc(100% - ${drawerWidth}px)`,
-    //     transition: theme.transitions.create(['width', 'margin'], {
-    //         easing: theme.transitions.easing.sharp,
-    //         duration: theme.transitions.duration.enteringScreen,
-    //     }),
-    // },
     menuButton: {
         marginRight: "36px !important",
     },
     hide: {
         display: 'none',
-    },
-    drawer: {
-        width: drawerWidth,
-        flexShrink: 0,
-        whiteSpace: 'nowrap',
-    },
-    drawerOpen: {
-        width: drawerWidth,
-        transition: theme.transitions.create('width', {
-            easing: theme.transitions.easing.sharp,
-            duration: theme.transitions.duration.enteringScreen,
-        }),
-    },
-    drawerClose: {
-        transition: theme.transitions.create('width', {
-            easing: theme.transitions.easing.sharp,
-            duration: theme.transitions.duration.leavingScreen,
-        }),
-        overflowX: 'hidden',
-        width: theme.spacing(7) + 1,
-        [theme.breakpoints.up('sm')]: {
-            width: theme.spacing(9) + 1,
-        },
     },
     toolbar: {
         display: 'flex',

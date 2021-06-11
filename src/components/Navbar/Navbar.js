@@ -11,14 +11,10 @@ import {
 } from "@material-ui/icons";
 import { Link, useLocation } from 'react-router-dom';
 import Notification from '../common/Notification/Notification';
-import { useRef } from 'react';
 import LayoutContext from '../../context/LayoutContext';
 import { useContext } from 'react';
-import classNames from 'classnames';
-import ReactCSSTransitionGroup from 'react-transition-group'; // ES6
 
 function Navbar(props) {
-    var ReactCSSTransitionGroup = require('react-transition-group'); // ES5 with npm
     const notifications = [
         { id: 0, color: "warning", message: "Check out this awesome ticket" },
         {
@@ -39,17 +35,25 @@ function Navbar(props) {
             type: "e-commerce",
             message: "12 new orders has arrived today",
         },
+        {
+            id: 4,
+            color: "primary",
+            type: "e-commerce",
+            message: "12 new orders has arrived today",
+        },
     ];
-    var { isOpen, routes, setIsOpen } = useContext(LayoutContext)
     const classes = useStyle();
+
+    var { isOpen, routes, setIsOpen } = useContext(LayoutContext)
     const [isAvatarBtnOpen, setAvatarBtnOpen] = React.useState(false);
+    var [notificationsMenu, setNotificationsMenu] = useState(null);
+
+    // get title of each route from routes list to make Breadcrumbs
     let location = useLocation();
     var recentLocation = location.pathname
-    // var [recentLocation,setBreadcrum] = useState(location.pathname) 
-    let lastIndexSignal = recentLocation.lastIndexOf("/")
-    let prevLocation = recentLocation.substring(0, lastIndexSignal)
+    let indexOfLastSeparator = recentLocation.lastIndexOf("/")
+    let prevLocation = recentLocation.substring(0, indexOfLastSeparator)
     var breadCrumbArray = ["My Profile"]
-    //    breadCrumArray.splice(0,2) //take paths except app/
     routes.forEach(route => {
         if (route.path == prevLocation) {
             breadCrumbArray.push(route.meta.title)
@@ -62,13 +66,12 @@ function Navbar(props) {
     });
     useLayoutEffect(() => {
         // setBreadcrum(location.pathname)
-        // alert(JSON.stringify(breadCrumArray))
+        // alert(JSON.stringify(breadCrumbArray))
     })
     const handleToggleSideBar = () => {
         isOpen = !isOpen
         setIsOpen(isOpen)
     }
-    var [notificationsMenu, setNotificationsMenu] = useState(null);
 
     const anchorRef = React.useRef(null);
 
@@ -94,22 +97,18 @@ function Navbar(props) {
     const prevOpen = React.useRef(isAvatarBtnOpen);
 
     React.useEffect(() => {
-        //        alert(props.open)
         if (prevOpen.current === true && isAvatarBtnOpen === false) {
             anchorRef.current.focus();
         }
 
         prevOpen.current = isAvatarBtnOpen;
     }, [isAvatarBtnOpen]);
+
     return (
         <div>
             <AppBar
                 position="sticky"
-                className={clsx(classes.appBar
-                    // , {
-                    //     // [classes.appBarShift]: isOpen,
-                    // }
-                )}
+                className={clsx(classes.appBar)}
             >
                 <Toolbar>
                     <IconButton
