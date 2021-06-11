@@ -1,6 +1,6 @@
 import React from 'react';
 
-function Login(props) {
+function GroupCreate(props) {
     return (
         <div>
             
@@ -8,4 +8,4 @@ function Login(props) {
     );
 }
 
-export default Login;
+export default GroupCreate;

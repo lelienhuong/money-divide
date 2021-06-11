@@ -1,11 +1,11 @@
 import React from 'react';
 
-function Login(props) {
+function GroupDetail(props) {
     return (
         <div>
-            
+            Detail
         </div>
     );
 }
 
-export default Login;
+export default GroupDetail;
