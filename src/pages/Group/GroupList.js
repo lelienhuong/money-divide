@@ -1,11 +1,11 @@
 import React from 'react';
 
-function Login(props) {
+function GroupList(props) {
     return (
         <div>
-            
+            hi Huwong
         </div>
     );
 }
 
-export default Login;
+export default GroupList;
