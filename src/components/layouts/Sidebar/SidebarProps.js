@@ -53,17 +53,33 @@ const SidebarProps = (props) => {
       break;
   }
 
+  let expandButton;
+  if (props.sideBarOpen) {
+    if (open) {
+      expandButton = <ExpandLess />;
+    } else {
+      expandButton = <ExpandMore />;
+    }
+  } else {
+    expandButton = "";
+  }
+
   return (
     <div id={props.id}>
       <ListItem button onClick={handle}>
         <ListItemIcon style={{ minWidth: "2.5em" }}>
           {props.parrentIcon}
         </ListItemIcon>
-        <ListItemText primary={props.id} />
-        {open ? <ExpandLess /> : <ExpandMore />}
+        <ListItemText primary={props.sideBarOpen ? props.id : ""} />
+        {expandButton}
       </ListItem>
       <Collapse in={open} timeout="auto" unmountOnExit>
-        <ListCollapse classes={classes} childIcon={props.childIcon} />
+        <ListCollapse
+          open={open}
+          classes={classes}
+          childIcon={props.childIcon}
+          sideBarOpen={props.sideBarOpen}
+        />
       </Collapse>
     </div>
   );

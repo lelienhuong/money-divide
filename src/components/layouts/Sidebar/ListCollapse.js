@@ -9,11 +9,11 @@ const ListCollapse = (props) => {
     <List component="div" disablePadding>
       {props.childIcon.map((icon) => {
         return (
-          <ListItem button className={props.classes.nested}>
+          <ListItem button className={props.classes.nestedOpen}>
             <ListItemIcon style={{ minWidth: "2.5em" }}>
               {icon.icon}
             </ListItemIcon>
-            <ListItemText primary={icon.text} />
+            <ListItemText primary={props.sideBarOpen ? icon.text : ""} />
           </ListItem>
         );
       })}

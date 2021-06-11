@@ -56,6 +56,7 @@ const Sidebar = (props) => {
           <Divider />
           <SidebarProps
             id="Profile"
+            sideBarOpen={open}
             parrentIcon={<AccountCircleIcon />}
             childIcon={[
               {
@@ -75,6 +76,7 @@ const Sidebar = (props) => {
 
           <SidebarProps
             id="Friends"
+            sideBarOpen={open}
             parrentIcon={<PeopleAltIcon />}
             childIcon={[
               {
@@ -94,6 +96,7 @@ const Sidebar = (props) => {
 
           <SidebarProps
             id="Groups"
+            sideBarOpen={open}
             parrentIcon={<SupervisedUserCircleIcon />}
             childIcon={[
               {
@@ -113,6 +116,7 @@ const Sidebar = (props) => {
 
           <SidebarProps
             id="Bills"
+            sideBarOpen={open}
             parrentIcon={<ReceiptIcon />}
             childIcon={[
               {
