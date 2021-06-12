@@ -33,10 +33,13 @@ export default makeStyles(theme => ({
     color: "white",
   },
   messageContainer: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "space-between",
-    flexGrow: 1,
+    // display: "flex",
+    // alignItems: "center",
+    // justifyContent: "space-between",
+    // flexGrow: 1,
+  },
+  RequestButton:{
+    textAlign:"center"
   },
   extraButton: {
     color: "white",

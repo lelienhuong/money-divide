@@ -15,6 +15,8 @@ import {
   Done as ShippedIcon,
   Publish as UploadIcon,
 } from "@material-ui/icons";
+import CheckCircleIcon from '@material-ui/icons/CheckCircle';
+import CancelIcon from '@material-ui/icons/Cancel';
 import { useTheme } from "@material-ui/styles";
 import classnames from "classnames";
 
@@ -41,7 +43,7 @@ const typesIcons = {
 };
 
 export default function Notification({ variant, ...props }) {
-  var classes = useStyles(); 
+  var classes = useStyles();
   var theme = useTheme();
 
   const icon = getIconByType(props.type);
@@ -56,44 +58,52 @@ export default function Notification({ variant, ...props }) {
         theme.palette[props.color].main,
     },
   });
-
+  const handleAccept = () => {
+    alert("Accept")
+  }
+  const handleDelete = () => {
+    alert("Delete")
+  }
   return (
-    <div
-      className={classnames(classes.notificationContainer, props.className, {
-        [classes.notificationContained]: variant === "contained",
-        [classes.notificationContainedShadowless]: props.shadowless,
-      })}
-      style={{
-        backgroundColor:
-          variant === "contained" &&
-          theme.palette[props.color] &&
-          theme.palette[props.color].main,
-      }}
-    >
+    <div style={{ width: "100%" }}>
       <div
-        className={classnames(classes.notificationIconContainer, {
-          [classes.notificationIconContainerContained]: variant === "contained",
-          [classes.notificationIconContainerRounded]: variant === "rounded",
+        className={classnames(classes.notificationContainer, props.className, {
+          [classes.notificationContained]: variant === "contained",
+          [classes.notificationContainedShadowless]: props.shadowless,
         })}
         style={{
           backgroundColor:
-            variant === "rounded" &&
-            theme.palette[props.color] 
+            variant === "contained" &&
+            theme.palette[props.color] &&
+            theme.palette[props.color].main,
+          alignItems:"flex-start"
         }}
       >
-        {iconWithStyles}
-      </div>
-      <div className={classes.messageContainer}>
-        <Typography
-          className={classnames({
-            [classes.containedTypography]: variant === "contained",
+        <div
+          className={classnames(classes.notificationIconContainer, {
+            [classes.notificationIconContainerContained]: variant === "contained",
+            [classes.notificationIconContainerRounded]: variant === "rounded",
           })}
-          variant={props.typographyVariant}
-          size={variant !== "contained" && !props.typographyVariant && "md"}
+          style={{
+            backgroundColor:
+              variant === "rounded" &&
+              theme.palette[props.color],
+              display:"block"
+          }}
         >
-          {props.message}
-        </Typography>
-        {props.extraButton && props.extraButtonClick && (
+          {iconWithStyles}
+        </div>
+        <div className={classes.messageContainer}>
+          <Typography
+            className={classnames({
+              [classes.containedTypography]: variant === "contained",
+            })}
+            variant={props.typographyVariant}
+            size={variant !== "contained" && !props.typographyVariant && "md"}
+          >
+            <span style={{ fontWeight: "bold" }}>Lien Huong</span> {props.message}
+          </Typography>
+          {/* {props.extraButton && props.extraButtonClick && (
           <Button
             onClick={props.extraButtonClick}
             disableRipple
@@ -101,7 +111,12 @@ export default function Notification({ variant, ...props }) {
           >
             {props.extraButton}
           </Button>
-        )}
+        )} */}
+        <div style={{ width: "100%",marginTop:"0.5vw"}}>
+        <Button onClick={handleAccept} style={{ color: "#39b539", fontWeight: "700",marginRight:"1vw" }}><CheckCircleIcon style={{ marginRight: "4px" }} /> Accept</Button>
+        <Button onClick={handleDelete} style={{ color: "red", fontWeight: "700" }}><CancelIcon style={{ marginRight: "4px" }} /> Delete</Button>
+        </div>
+        </div>
       </div>
     </div>
   );

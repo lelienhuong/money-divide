@@ -16,29 +16,28 @@ import { useContext } from 'react';
 
 function Navbar(props) {
     const notifications = [
-        { id: 0, color: "warning", message: "Check out this awesome ticket" },
         {
             id: 1,
-            color: "success",
-            type: "info",
-            message: "What is the best way to get ...",
+            color: "secondary",
+            type: "notification",
+            message: "wants to be your friend",
         },
         {
             id: 2,
             color: "secondary",
             type: "notification",
-            message: "This is just a simple notification",
+            message: "wants to be your friend",
         },
         {
             id: 3,
-            color: "primary",
-            type: "e-commerce",
-            message: "12 new orders has arrived today",
+            color: "secondary",
+            type: "notification",
+            message: "wants to be your friend",
         },
         {
             id: 4,
-            color: "primary",
-            type: "e-commerce",
+            color: "secondary",
+            type: "notification",
             message: "12 new orders has arrived today",
         },
     ];
@@ -167,7 +166,7 @@ function Navbar(props) {
                             {notifications.map(notification => (
                                 <MenuItem
                                     key={notification.id}
-                                    onClick={() => setNotificationsMenu(null)}
+                                    // onClick={() => setNotificationsMenu(null)}
                                     className={classes.headerMenuItem}
                                 >
                                     <Notification {...notification} typographyVariant="inherit" />

@@ -35,5 +35,8 @@ export default makeStyles(theme => ({
         flexGrow: 1,
         padding: theme.spacing(3),
     },
-    
+    headerMenu:{
+        height:'50vh',
+        width:'40vw'
+    }
 }))
