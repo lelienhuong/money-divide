@@ -5,14 +5,16 @@ import ListItemText from "@material-ui/core/ListItemText";
 import ExpandLess from "@material-ui/icons/ExpandLess";
 import ExpandMore from "@material-ui/icons/ExpandMore";
 import Collapse from "@material-ui/core/Collapse";
+import { useContext } from "react";
 import ListCollapse from "./ListCollapse";
 import useStyles from "./styles";
-
+import LayoutContext from "../../context/LayoutContext";
 const SidebarProps = (props) => {
   const [profileOpen, setProfileOpen] = useState(false);
   const [friendsOpen, setFriendsOpen] = useState(false);
   const [groupsOpen, setGroupsOpen] = useState(false);
   const [billsOpen, setBillsOpen] = useState(false);
+  const { isOpen } = useContext(LayoutContext);
   const classes = useStyles();
 
   const handleProfileOpen = () => {
@@ -70,7 +72,10 @@ const SidebarProps = (props) => {
         <ListItemIcon style={{ minWidth: "2.5em" }}>
           {props.parrentIcon}
         </ListItemIcon>
-        <ListItemText primary={props.sideBarOpen ? props.id : ""} />
+        <ListItemText
+          primary={props.id}
+          style={{ marginLeft: "4px" }}
+        />
         {expandButton}
       </ListItem>
       <Collapse in={open} timeout="auto" unmountOnExit>
