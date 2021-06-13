@@ -10,7 +10,7 @@ export default makeStyles(theme => ({
         width: "100%",
         position: "sticky",
         right: "auto",
-        zIndex: theme.zIndex.drawer + 1,
+        // zIndex: theme.zIndex.drawer + 1,
         transition: theme.transitions.create(['width', 'margin'], {
             easing: theme.transitions.easing.sharp,
             duration: theme.transitions.duration.leavingScreen,
