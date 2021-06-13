@@ -13,6 +13,9 @@ import { withRouter } from "react-router-dom";
 import useStyles from "./styles";
 import logo from "./logo.svg";
 import axios from "axios";
+import { authService } from "../../services/auth";
+import { useDispatch } from "react-redux";
+import { LOGIN } from "../../store/actions/types";
 
 const Login = (props) => {
   const classes = useStyles();
@@ -27,6 +30,7 @@ const Login = (props) => {
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
 
+  const dispatch = useDispatch()
   axios.defaults.baseURL = "https://money-divider-app-be.herokuapp.com";
 
   const submitRegisterForm = async (e) => {
@@ -55,13 +59,22 @@ const Login = (props) => {
     };
 
     try {
-      setIsLoading(true);
-      const response = await axios.post("/user/login", userLoginInfo);
-      console.log(response);
-      setIsLoading(false);
+      // setIsLoading(true);
+      // const response = await axios.post("/user/login", userLoginInfo);
+      // console.log(response);
+      const { data } = await authService.login(userLoginInfo)
+      localStorage.setItem('auth', JSON.stringify(data))
+      dispatch({ type: LOGIN, payload: { data: data } })
+      const queryParams = new URLSearchParams(window.location.search);
+      const redirect = queryParams.get('redirect')
+      redirect !== null ? props.history.push(redirect) : props.history.push('/my-profile')
+
     } catch (err) {
       console.log(err);
+    } finally {
+      setIsLoading(false);
     }
+
   };
 
   return (

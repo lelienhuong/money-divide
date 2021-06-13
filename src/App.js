@@ -22,14 +22,14 @@ function App() {
             path="/"
             render={() => {
               return (
-                  <Redirect to="/my-profile" /> 
+                <Redirect to="/my-profile" />
               )
-            }}/>
+            }} />
           <Route path="/login" render={(props) => <Login {...props} />} />
           <Route exact="true" path="/sandbox">
             <Sandbox />
           </Route>
-          <Route path="/my-profile" component={Layout} />
+          <PrivateRoute path="/my-profile" component={Layout} />
         </Switch>
       </Router>
     </div>

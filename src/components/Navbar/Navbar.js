@@ -14,8 +14,10 @@ import {
     NotificationsNone as NotificationsIcon
 } from "@material-ui/icons";
 
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useHistory, useLocation } from 'react-router-dom';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+import { useDispatch } from 'react-redux';
+import { LOGOUT } from '../../store/actions/types';
 
 function Navbar(props) {
     const notifications = [
@@ -45,6 +47,8 @@ function Navbar(props) {
         },
     ];
     const classes = useStyle();
+    const dispatch = useDispatch();
+    const history = useHistory();
 
     var { isOpen, routes, setIsOpen } = useContext(LayoutContext)
     const [isAvatarBtnOpen, setAvatarBtnOpen] = React.useState(false);
@@ -107,6 +111,16 @@ function Navbar(props) {
         prevOpen.current = isAvatarBtnOpen;
     }, [isAvatarBtnOpen]);
 
+    const handleLogout = (e) => {
+        localStorage.removeItem('auth')
+        dispatch({ type: LOGOUT })
+        history.push(`/login?redirect=${location.pathname}`)
+        handleClose(e)
+    }
+    const handleDirectToProfile = (e) => {
+        history.push('/my-profile')
+        handleClose(e)
+    }
     return (
         <div>
             <AppBar
@@ -197,9 +211,8 @@ function Navbar(props) {
                                 <Paper>
                                     <ClickAwayListener onClickAway={handleClose}>
                                         <MenuList autoFocusItem={isAvatarBtnOpen} id="menu-list-grow" onKeyDown={handleListKeyDown}>
-                                            <MenuItem onClick={handleClose}>Profile</MenuItem>
-                                            <MenuItem onClick={handleClose}>My account</MenuItem>
-                                            <MenuItem onClick={handleClose}>Logout</MenuItem>
+                                            <MenuItem onClick={handleDirectToProfile}>Profile</MenuItem>
+                                            <MenuItem onClick={handleLogout}>Logout</MenuItem>
                                         </MenuList>
                                     </ClickAwayListener>
                                 </Paper>
