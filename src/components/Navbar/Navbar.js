@@ -1,18 +1,21 @@
-import React, { useLayoutEffect, useState } from 'react';
+import React, { useLayoutEffect, useState, useContext } from 'react';
+import Notification from '../common/Notification/Notification';
+import LayoutContext from '../../context/LayoutContext';
 import Typography from '@material-ui/core/Typography';
 import '@fontsource/roboto';
 import useStyle from './styles'
-import { AppBar, Avatar, Breadcrumbs, Button, ClickAwayListener, Grow, IconButton, Menu, MenuItem, MenuList, Paper, Popper, Toolbar } from '@material-ui/core';
 import clsx from 'clsx';
+// Components Material UI
+import { AppBar, Avatar, Breadcrumbs, Button, ClickAwayListener, Grow, IconButton, Menu, MenuItem, MenuList, Paper, Popper, Toolbar } from '@material-ui/core';
+// icons 
 import MenuIcon from '@material-ui/icons/Menu';
 import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 import {
     NotificationsNone as NotificationsIcon
 } from "@material-ui/icons";
+
 import { Link, useLocation } from 'react-router-dom';
-import Notification from '../common/Notification/Notification';
-import LayoutContext from '../../context/LayoutContext';
-import { useContext } from 'react';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 function Navbar(props) {
     const notifications = [
@@ -64,6 +67,7 @@ function Navbar(props) {
         }
     });
     useLayoutEffect(() => {
+        // alert("hi")
         // setBreadcrum(location.pathname)
         // alert(JSON.stringify(breadCrumbArray))
     })
@@ -121,16 +125,26 @@ function Navbar(props) {
                     </IconButton>
                     <div style={{ justifyContent: "space-between", display: "flex", alignItems: "center", width: "100%" }}>
                         <Typography variant="h6" noWrap>
-                            <Breadcrumbs style={{ transitionDuration: "3s" }} separator={<NavigateNextIcon fontSize="small" />} aria-label="breadcrumb">
+                            <Breadcrumbs separator={<NavigateNextIcon fontSize="small" />} aria-label="breadcrumb">
                                 {
                                     breadCrumbArray.map((item, index) => {
-                                        if (index == breadCrumbArray.length - 1) return
                                         return (
-                                            <Link style={{ color: "#b9b9b9", textDecoration: "none", float: "left" }} href="/app"> {item} </Link>
+                                            <ReactCSSTransitionGroup
+                                                transitionName="fade"
+                                                key={location.pathname}
+                                                transitionAppear={true}
+                                                transitionAppearTimeout={500}
+                                                transitionEnterTimeout={500}
+                                                transitionLeaveTimeout={300}>
+                                                {
+                                                    index != breadCrumbArray.length - 1 ?
+                                                        <Link style={{ transitionDelay: `${index * 100}ms`, color: "#b9b9b9" }} className={classes.breadCrumbsLink} href="/app"> {item} </Link>
+                                                        : <Typography style={{ transitionDelay: `${index * 100}ms`, color: "#20D3E2" }} className={classes.breadCrumbsLink} color="textPrimary">{item}</Typography>
+                                                }
+                                            </ReactCSSTransitionGroup>
                                         )
                                     }
                                     )}
-                                <Typography color="textPrimary">{breadCrumbArray[breadCrumbArray.length - 1]}</Typography>
                             </Breadcrumbs>
                         </Typography>
                         <div style={{ justifyContent: "space-between", display: "flex", alignItems: "center" }}>

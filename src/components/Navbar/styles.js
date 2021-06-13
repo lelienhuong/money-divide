@@ -15,7 +15,12 @@ export default makeStyles(theme => ({
             easing: theme.transitions.easing.sharp,
             duration: theme.transitions.duration.leavingScreen,
         }),
-        boxShadow:"0 1px 4px rgb(0 21 41 / 8%) !important"
+        boxShadow: "0 1px 4px rgb(0 21 41 / 8%) !important"
+    },
+    breadCrumbsLink: {
+        textDecoration: "none",
+        float: "left",
+        transitionDuration: '300ms',
     },
     menuButton: {
         marginRight: "36px !important",
@@ -35,8 +40,8 @@ export default makeStyles(theme => ({
         flexGrow: 1,
         padding: theme.spacing(3),
     },
-    headerMenu:{
-        height:'50vh',
-        width:'40vw'
+    headerMenu: {
+        height: '50vh',
+        width: '40vw'
     }
 }))

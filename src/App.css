@@ -37,3 +37,36 @@
     transform: translateY(0px);
   }
 }
+
+.fade-enter {
+  opacity: 0;
+}
+
+.fade-enter.fade-enter-active {
+  opacity: 1;
+  /* transition: opacity 500ms ease-in; */
+}
+
+.fade-leave {
+  opacity: 1;
+  transform: translateX(0%);
+}
+
+.fade-leave.fade-leave-active {
+  opacity: 0;
+  transform: translateX(100%);
+  transition: opacity 300ms ease-out;
+}
+
+.fade-appear {
+  opacity: 0;
+  transform: translateX(-50%);
+}
+
+.fade-appear.fade-appear-active {
+  transform: translateX(0%);
+  /* transition: transform 2s ease-out; */
+  opacity: 1;
+  /* transition: opacity 500ms ease-in; */
+}
+

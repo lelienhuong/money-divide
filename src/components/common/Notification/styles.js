@@ -12,7 +12,7 @@ export default makeStyles(theme => ({
   },
   notificationContainedShadowless: {
     boxShadow: "none",
-  },
+  },  
   notificationIconContainer: {
     minWidth: 45,
     height: 45,
