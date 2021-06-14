@@ -28,10 +28,6 @@ import Sidebar from "../Sidebar/Sidebar";
 function Layout(props) {
   const classes = useStyle();
   const [isOpen, setOpen] = useState(true);
-  useEffect(() => {
-    // var routes = routes;
-    // setRouter(routes);
-  });
   return (
     <LayoutContext.Provider
       value={{
@@ -48,44 +44,44 @@ function Layout(props) {
               <div style={{ width: "100%" }}>
                 <Navbar />
                 <Switch>
-                  <Route exact="true" path="/my-profile" component={Profile} />
+                  <Route exact path="/my-profile" component={Profile} />
                   <Route
-                    exact="true"
+                    exact
                     path="/my-profile/friends/friends-index"
                     component={Friend}
                   />
                   <Route
-                    exact="true"
+                    exact
                     path="/my-profile/friends/friends-create"
                     component={FriendCreate}
                   />
                   <Route
-                    exact="true"
+                    exact
                     path="/my-profile/groups/groups-index"
                     component={GroupList}
                   />
                   <Route
-                    exact="true"
+                    exact
                     path="/my-profile/groups/groups-create"
                     component={GroupCreate}
                   />
                   <Route
-                    exact="true"
+                    exact
                     path="/my-profile/groups/groups-detail"
                     component={GroupDetail}
                   />
                   <Route
-                    exact="true"
+                    exact
                     path="/my-profile/bills/bills-index"
                     component={BillList}
                   />
                   <Route
-                    exact="true"
+                    exact
                     path="/my-profile/bills/bills-create"
                     component={BillCreate}
                   />
                   <Route
-                    exact="true"
+                    exact
                     path="/my-profile/bills/bills-detail"
                     component={BillDetail}
                   />
