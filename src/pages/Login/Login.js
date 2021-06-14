@@ -31,7 +31,6 @@ const Login = (props) => {
   const [loginPassword, setLoginPassword] = useState("");
 
   const dispatch = useDispatch()
-  axios.defaults.baseURL = "https://money-divider-app-be.herokuapp.com";
 
   const submitRegisterForm = async (e) => {
     e.preventDefault();
@@ -59,7 +58,7 @@ const Login = (props) => {
     };
 
     try {
-      // setIsLoading(true);
+      setIsLoading(true);
       // const response = await axios.post("/user/login", userLoginInfo);
       // console.log(response);
       const { data } = await authService.login(userLoginInfo)

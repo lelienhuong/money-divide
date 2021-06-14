@@ -8,6 +8,7 @@ import { createStore } from 'redux';
 import rootReducers from './store/reducers/index'
 import Themes from './themes'
 import { ThemeProvider } from '@material-ui/styles';
+import './index.css';
 
 const store = createStore(rootReducers)
 ReactDOM.render(
