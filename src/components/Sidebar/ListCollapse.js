@@ -15,6 +15,7 @@ const ListCollapse = (props) => {
             button
             onClick={() => history.push(icon.path)}
             className={props.classes.nestedOpen}
+            key={icon.text}
           >
             <ListItemIcon style={{ minWidth: "2.5em" }}>
               {icon.icon}

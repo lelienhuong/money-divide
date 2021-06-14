@@ -70,3 +70,6 @@
   /* transition: opacity 500ms ease-in; */
 }
 
+.MuiAlert-message{
+  width: 100%;
+}

@@ -1,8 +1,8 @@
 import { clientApi } from '../api/client'
 
 export const authService = {
-  login: (form) => clientApi.post('api/auth', form),
+  login: (form) => clientApi.post('/user/login', form),
   //
-  signup: (form) => clientApi.post('/auth/signup', form),
+  register: (form) => clientApi.post('/user/register', form),
   //  
 }
