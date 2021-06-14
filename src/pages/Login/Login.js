@@ -20,7 +20,8 @@ import { LOGIN } from "../../store/actions/types";
 const Login = (props) => {
   const classes = useStyles();
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null);
+  const [loginError, setLoginError] = useState(null);
+  const [registerError, setRegisterError] = useState(null);
   const [activeTabId, setActiveTabId] = useState(0);
   const [nameValue, setNameValue] = useState("");
   const [phoneValue, setPhoneValue] = useState("");
@@ -30,8 +31,7 @@ const Login = (props) => {
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
 
-  const dispatch = useDispatch()
-  axios.defaults.baseURL = "https://money-divider-app-be.herokuapp.com";
+  const dispatch = useDispatch();
 
   const submitRegisterForm = async (e) => {
     e.preventDefault();
@@ -59,22 +59,22 @@ const Login = (props) => {
     };
 
     try {
-      // setIsLoading(true);
-      // const response = await axios.post("/user/login", userLoginInfo);
-      // console.log(response);
-      const { data } = await authService.login(userLoginInfo)
-      localStorage.setItem('auth', JSON.stringify(data))
-      dispatch({ type: LOGIN, payload: { data: data } })
+      setIsLoading(true);
+      const { data } = await authService.login(userLoginInfo);
+      console.log(data);
+      localStorage.setItem("auth", JSON.stringify(data));
+      dispatch({ type: LOGIN, payload: { data: data } });
       const queryParams = new URLSearchParams(window.location.search);
-      const redirect = queryParams.get('redirect')
-      redirect !== null ? props.history.push(redirect) : props.history.push('/my-profile')
-
+      const redirect = queryParams.get("redirect");
+      redirect !== null
+        ? props.history.push(redirect)
+        : props.history.push("/my-profile");
     } catch (err) {
+      setLoginError(true);
       console.log(err);
     } finally {
       setIsLoading(false);
     }
-
   };
 
   return (
@@ -88,8 +88,8 @@ const Login = (props) => {
           <Tabs
             value={activeTabId}
             onChange={(e, id) => setActiveTabId(id)}
-            indicatorColor="primary"
-            textColor="primary"
+            indicatorColor="secondary"
+            textColor="info"
             centered
           >
             <Tab label="Login" classes={{ root: classes.tab }} />
@@ -100,9 +100,9 @@ const Login = (props) => {
               <Typography variant="h1" className={classes.greeting}>
                 Good Morning, User
               </Typography>
-              <Fade in={error}>
-                <Typography color="secondary" className={classes.errorMessage}>
-                  Something is wrong with your login or password :(
+              <Fade in={loginError}>
+                <Typography color="error" className={classes.errorMessage}>
+                  Something is wrong with your login or password
                 </Typography>
               </Fade>
               <form onSubmit={(e) => submitLoginForm(e)}>
@@ -143,6 +143,7 @@ const Login = (props) => {
                     <CircularProgress
                       size={26}
                       className={classes.loginLoader}
+                      color="secondary"
                     />
                   ) : (
                     <Button
@@ -150,7 +151,7 @@ const Login = (props) => {
                         loginEmail.length === 0 || loginEmail.length === 0
                       }
                       variant="contained"
-                      color="primary"
+                      color="secondary"
                       size="large"
                       fullWidth={true}
                       type="submit"
@@ -171,9 +172,9 @@ const Login = (props) => {
               <Typography variant="h2" className={classes.subGreeting}>
                 Create your account
               </Typography>
-              <Fade in={error}>
-                <Typography color="secondary" className={classes.errorMessage}>
-                  Something is wrong with your login or password :(
+              <Fade in={registerError}>
+                <Typography color="error" className={classes.errorMessage}>
+                  Something is wrong with your login or password
                 </Typography>
               </Fade>
               <form onSubmit={(e) => submitRegisterForm(e)}>
