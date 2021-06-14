@@ -95,6 +95,12 @@ const LoginTab = (props) => {
             },
           }}
           value={loginPassword}
+          error={loginPassword >= 6 && loginPassword !== 0}
+          helperText={
+            loginPassword >= 6 && loginPassword !== 0
+              ? "Password must be longer or equal to 6 digits"
+              : ""
+          }
           onChange={(e) => setLoginPassword(e.target.value)}
           margin="normal"
           placeholder="Password"

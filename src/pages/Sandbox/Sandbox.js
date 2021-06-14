@@ -11,26 +11,6 @@
 // }
 
 // export default Sandbox;
-<<<<<<< HEAD
-import LoginTab from "../Login/LoginTab";
-import RegisterTab from "../Login/RegisterTab";
-import { useState } from "react";
-import {
-  CSSTransition,
-  SwitchTransition,
-  Transition,
-  TransitionGroup,
-} from "react-transition-group";
-import Button from "@material-ui/core/Button";
-import ReactCSSTransitionGroup from "react-addons-css-transition-group";
-
-function Sandbox(props) {
-  return (
-    <div>
-      <RegisterTab />
-    </div>
-  );
-=======
 import { useEffect, useState } from 'react';
 import { CSSTransition, SwitchTransition, Transition, TransitionGroup } from 'react-transition-group';
 // import Button from '@material-ui/core/Button';
@@ -285,6 +265,5 @@ function Sandbox(props) {
     //             </button>
     //         </div> */
     // )
->>>>>>> 3f84e078b8ee2bd0d3b04ea36ea726cef29a05a6
 }
 export default Sandbox;
