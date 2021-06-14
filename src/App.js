@@ -26,7 +26,7 @@ function App() {
               )
             }} />
           <Route path="/login" render={(props) => <Login {...props} />} />
-          <Route exact="true" path="/sandbox">
+          <Route exact path="/sandbox">
             <Sandbox />
           </Route>
           <PrivateRoute path="/my-profile" component={Layout} />
