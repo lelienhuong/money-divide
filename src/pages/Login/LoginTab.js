@@ -51,7 +51,7 @@ const LoginTab = (props) => {
   return (
     <React.Fragment>
       <Typography variant="h1" className={classes.greeting}>
-        Good Morning, User
+        Hello, Login here!
       </Typography>
       <Fade
         in={loginError}
@@ -98,7 +98,7 @@ const LoginTab = (props) => {
           error={loginPassword >= 6 && loginPassword !== 0}
           helperText={
             loginPassword >= 6 && loginPassword !== 0
-              ? "Password must be longer or equal to 6 digits"
+              ? "Password has to have at least 6 digits"
               : ""
           }
           onChange={(e) => setLoginPassword(e.target.value)}

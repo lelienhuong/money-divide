@@ -1,12 +1,9 @@
 import React, { useState } from "react";
 
 import {
-  Grid,
   CircularProgress,
   Typography,
   Button,
-  Tabs,
-  Tab,
   TextField,
   Fade,
 } from "@material-ui/core";
@@ -15,7 +12,6 @@ import AlertTitle from "@material-ui/lab/AlertTitle";
 import { authService } from "../../services/auth";
 import { useDispatch } from "react-redux";
 import { REGISTER } from "../../store/actions/types";
-import { useSelector } from "react-redux";
 import useStyles from "./styles";
 
 const RegisterTab = (props) => {
@@ -23,10 +19,18 @@ const RegisterTab = (props) => {
   const [phoneValue, setPhoneValue] = useState("");
   const [emailValue, setEmailValue] = useState("");
   const [passwordValue, setPasswordValue] = useState("");
-  const [registerError, setRegisterError] = useState(null);
+  const [registerError, setRegisterError] = useState(false);
+  const [registerExisted, setRegisterExisted] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const classes = useStyles();
   const dispatch = useDispatch();
+
+  const validateEmail = (email) => {
+    const re =
+      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(String(email).toLowerCase());
+  };
+
   const submitRegisterForm = async (e) => {
     e.preventDefault();
     const userRegisterInfo = {
@@ -35,46 +39,56 @@ const RegisterTab = (props) => {
       email: emailValue,
       password: passwordValue,
     };
-    try {
-      setIsLoading(true);
-      const { data } = await authService.register(userRegisterInfo);
-      localStorage.setItem("auth", JSON.stringify(data));
-      dispatch({ type: REGISTER, payload: { data: data } });
 
-      const queryParams = new URLSearchParams(window.location.search);
-      const redirect = queryParams.get("redirect");
-      redirect !== null
-        ? props.history.push(redirect)
-        : props.history.push("/my-profile");
-    } catch (err) {
-      if (err.response.status === 400) setRegisterError(true);
-      console.log(err);
-    } finally {
-      setIsLoading(false);
+    if (passwordValue.length >= 6 && validateEmail(emailValue)) {
+      try {
+        setIsLoading(true);
+        const { data } = await authService.register(userRegisterInfo);
+        localStorage.setItem("auth", JSON.stringify(data));
+        dispatch({ type: REGISTER, payload: { data: data } });
+        const queryParams = new URLSearchParams(window.location.search);
+        const redirect = queryParams.get("redirect");
+        redirect !== null
+          ? props.history.push(redirect)
+          : props.history.push("/my-profile");
+      } catch (err) {
+        setRegisterError(false);
+        setRegisterExisted(true);
+        console.log(err);
+      } finally {
+        setIsLoading(false);
+      }
+    } else {
+      setRegisterExisted(false);
+      setRegisterError(true);
     }
   };
-
-  function validateEmail(email) {
-    const re =
-      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    return re.test(String(email).toLowerCase());
-  }
 
   return (
     <React.Fragment>
       <Fade
-        in={registerError}
+        in={registerExisted || registerError}
         style={{
           marginTop: "32px",
-          display: registerError ? "" : "none",
+          display: registerError || registerExisted ? "" : "none",
         }}
       >
         <Alert severity="error" variant="outlined">
-          <AlertTitle>
-            Register failed
-            <br></br>
-            The email is already existed
-          </AlertTitle>
+          {registerExisted ? (
+            <AlertTitle>
+              Register failed
+              <br></br>
+              The email is already existed
+            </AlertTitle>
+          ) : (
+            registerError && (
+              <AlertTitle>
+                Register failed
+                <br></br>
+                Please enter the form correctly
+              </AlertTitle>
+            )
+          )}
         </Alert>
       </Fade>
       <Typography variant="h1" className={classes.greeting}>
@@ -145,9 +159,9 @@ const RegisterTab = (props) => {
               input: classes.textField,
             },
           }}
-          error={!(passwordValue <= 6 && passwordValue !== 0)}
+          error={passwordValue.length <= 6 && passwordValue.length !== 0}
           helperText={
-            passwordValue >= 6 && passwordValue !== 0
+            passwordValue.length <= 6 && passwordValue.length !== 0
               ? "Password must be longer or equal to 6 digits"
               : ""
           }
